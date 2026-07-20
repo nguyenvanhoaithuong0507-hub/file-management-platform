@@ -1,0 +1,259 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                   🚀 NEXT.JS 16 PROJECT STRUCTURE 🚀                         ║
+║                                                                              ║
+║  Cấu trúc FTP thư mục cho trang web Next.js hiện thị trên Internet         ║
+║  Hỗ trợ: HTML, CSS, JS, JSON, Node.js, Vercel, Next.js                    ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+📚 DOCUMENTATION FILES
+════════════════════════════════════════════════════════════════════════════════
+
+📄 INDEX.md                    ⭐ START HERE - Mục lục tài liệu
+📄 QUICK_START.md              ⚡ Bắt đầu trong 5 phút  
+📄 README.md                   📖 Hướng dẫn đầy đủ
+📄 FILE_STRUCTURE.md           📁 Chi tiết cấu trúc thư mục
+📄 DEPLOYMENT_GUIDE.md         🌐 So sánh các phương pháp deploy
+📄 FTP_DEPLOYMENT.md           📡 Hướng dẫn chi tiết upload FTP
+
+🗂️ PROJECT FOLDERS
+════════════════════════════════════════════════════════════════════════════════
+
+app/                          Next.js 16 App Router
+├── page.tsx                  Homepage (/)
+├── layout.tsx                Root layout
+├── globals.css               Global styles + Tailwind
+└── api/
+    └── users/route.ts        API example (/api/users)
+
+components/                   React Components
+├── ui/
+│   └── button.tsx           shadcn/ui button
+└── ...add more components
+
+lib/                          Utilities & Helpers
+├── api-client.ts            HTTP client for API calls
+└── utils.ts                 Utility functions
+
+types/                        TypeScript Interfaces
+└── index.ts                 All type definitions
+
+constants/                    Constants & Config
+└── api.ts                   API endpoints
+
+hooks/                        Custom React Hooks
+└── (ready to add hooks)
+
+public/                       Static Assets
+├── images/                  Image files
+├── icons/                   Icon files
+└── fonts/                   Font files
+
+data/                         Static Data Files
+└── (JSON files here)
+
+styles/                       Global Stylesheets
+└── (CSS files here)
+
+⚙️ CONFIGURATION FILES
+════════════════════════════════════════════════════════════════════════════════
+
+package.json                 Dependencies & scripts
+next.config.mjs              Next.js configuration
+tsconfig.json                TypeScript configuration
+tailwind.config.ts           Tailwind CSS configuration
+postcss.config.mjs           PostCSS configuration
+components.json              shadcn/ui configuration
+vercel.json                  Vercel deployment config
+.env.example                 Environment variables template
+.env.local                   Local development variables
+.gitignore                   Git ignore rules
+
+🚀 QUICK COMMANDS
+════════════════════════════════════════════════════════════════════════════════
+
+pnpm install                 Install dependencies
+pnpm dev                     Start dev server (http://localhost:3000)
+pnpm build                   Build production
+pnpm start                   Run production build
+pnpm lint                    Check code quality
+pnpm type-check              TypeScript type checking
+
+🌐 DEPLOYMENT OPTIONS
+════════════════════════════════════════════════════════════════════════════════
+
+1. VERCEL (Recommended) ⭐⭐⭐⭐⭐
+   - GitHub → Vercel auto-deploy
+   - Zero configuration
+   - Free tier
+   - Best for Next.js
+
+2. VERCEL CLI ⭐⭐⭐⭐
+   - vercel login
+   - vercel --prod
+   - 5 minutes setup
+
+3. FTP + SERVER ⭐⭐⭐
+   - Upload via FileZilla/SFTP
+   - Setup Node.js
+   - Run with PM2
+   - See: FTP_DEPLOYMENT.md
+
+4. RAILWAY / RENDER ⭐⭐⭐⭐
+   - Connect GitHub
+   - Auto-deploy
+   - Easy scaling
+
+5. DOCKER ⭐⭐⭐
+   - docker build .
+   - docker run -p 3000:3000
+
+💻 FILE UPLOAD CHECKLIST
+════════════════════════════════════════════════════════════════════════════════
+
+✅ Upload Khi Deploy:
+   - app/               (all files)
+   - components/        (all files)
+   - lib/              (all files)
+   - public/           (all files)
+   - types/            (all files)
+   - constants/        (all files)
+   - hooks/            (all files)
+   - data/             (all files)
+   - package.json      (dependencies)
+   - next.config.mjs   (config)
+   - tsconfig.json     (config)
+   - tailwind.config.ts (config)
+   - postcss.config.mjs (config)
+   - .env.production   (environment)
+
+❌ NOT Upload:
+   - node_modules/     (cài lại trên server)
+   - .next/            (build trên server)
+   - .git/             (không cần)
+   - .env.local        (local only)
+
+📡 FTP Upload Methods
+════════════════════════════════════════════════════════════════════════════════
+
+Method 1: FileZilla (GUI)
+   1. Download FileZilla
+   2. File → Site Manager
+   3. Add FTP server details
+   4. Drag & drop files
+
+Method 2: SFTP (CLI)
+   sftp user@server.com
+   sftp> put -r app
+   sftp> put -r components
+   ...
+
+Method 3: Git Deploy
+   1. Push to GitHub
+   2. SSH to server
+   3. git clone repo
+   4. pnpm install
+   5. pnpm build
+   6. pm2 start...
+
+📝 AFTER UPLOADING (Server Setup)
+════════════════════════════════════════════════════════════════════════════════
+
+1. SSH to server:
+   ssh user@server.com
+
+2. Navigate to app:
+   cd ~/public_html/nextjs-app
+
+3. Install Node.js (if needed):
+   curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+   sudo apt install nodejs
+
+4. Install pnpm:
+   npm install -g pnpm
+
+5. Install dependencies:
+   pnpm install
+
+6. Setup environment:
+   nano .env.production
+   # Add: NEXT_PUBLIC_API_URL=...
+
+7. Build app:
+   pnpm build
+
+8. Run with PM2:
+   npm install -g pm2
+   pm2 start "pnpm start" --name "nextjs"
+   pm2 startup
+   pm2 save
+
+9. Setup Nginx (reverse proxy):
+   sudo apt install nginx
+   # Configure nginx.conf for localhost:3000
+
+10. Setup SSL (free with Let's Encrypt):
+    sudo apt install certbot
+    sudo certbot certonly -d yourdomain.com
+
+✨ TECHNOLOGY STACK
+════════════════════════════════════════════════════════════════════════════════
+
+Frontend:
+  ✓ Next.js 16 (React framework)
+  ✓ React 19 (UI library)
+  ✓ TypeScript (type safety)
+  ✓ Tailwind CSS (styling)
+  ✓ shadcn/ui (components)
+
+Backend:
+  ✓ Node.js (runtime)
+  ✓ API Routes (serverless)
+  ✓ TypeScript
+
+Database (Optional):
+  ✓ Neon PostgreSQL (recommended)
+  ✓ Drizzle ORM
+  ✓ Better Auth
+
+Deployment:
+  ✓ Vercel (recommended)
+  ✓ Server (FTP/SSH)
+  ✓ Docker
+  ✓ Railway/Render
+
+🎯 GETTING STARTED
+════════════════════════════════════════════════════════════════════════════════
+
+1. READ: INDEX.md or QUICK_START.md
+2. RUN: pnpm dev
+3. BUILD: Create pages in app/
+4. ADD: Components in components/
+5. DEPLOY: Follow DEPLOYMENT_GUIDE.md
+
+📚 DOCUMENTATION
+════════════════════════════════════════════════════════════════════════════════
+
+READ THESE FILES IN ORDER:
+
+1. INDEX.md              - Mục lục
+2. QUICK_START.md        - Bắt đầu nhanh (5 min)
+3. README.md             - Hướng dẫn đầy đủ
+4. FILE_STRUCTURE.md     - Chi tiết cấu trúc
+5. DEPLOYMENT_GUIDE.md   - Chọn & deploy
+6. FTP_DEPLOYMENT.md     - FTP/SSH chi tiết
+
+🆘 TROUBLESHOOTING
+════════════════════════════════════════════════════════════════════════════════
+
+Check these files:
+  - Error building? → README.md → Troubleshooting
+  - Deployment issue? → DEPLOYMENT_GUIDE.md
+  - FTP upload problem? → FTP_DEPLOYMENT.md
+  - Can't find file? → FILE_STRUCTURE.md
+
+═══════════════════════════════════════════════════════════════════════════════
+
+                        🎉 YOU'RE ALL SET! 🎉
+                    Start with: pnpm dev → http://localhost:3000
+
+═══════════════════════════════════════════════════════════════════════════════
